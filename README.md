@@ -7,6 +7,7 @@ pip install filterpy
 pip install supervision
 pip install pylabel
 pip install ultralytics
+sudo apt install libopencv-dev python3-opencv
 ```
 Train:
 
