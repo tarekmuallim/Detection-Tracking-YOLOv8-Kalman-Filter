@@ -79,7 +79,7 @@ if save:
     video_writer = cv2.VideoWriter(video_output_path, fourcc, fps, size)
 
 
-tracker = kalman_trakcer(max_age=20, min_hits=1, iou_threshold=0.3)
+tracker = kalman_trakcer(max_age=60, min_hits=1, iou_threshold=0.05)
 
 count = 0
 while True:
@@ -144,14 +144,16 @@ while True:
         frame = plot_bboxes(boxes_track2, boces_ids2,  classes2, frame)
     
     end_time = time()
-    fps = 1/np.round(end_time - start_time, 2)             
+    fps = 1/np.round(end_time - start_time, 2)  
     cv2.putText(frame, f'FPS: {int(fps)}  Count: {int(count)}', (20,70), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 3)
     
     if save:
         video_writer.write(frame)
 
-    cv2.imshow('YOLOv8 Detection', frame) 
-    if cv2.waitKey(5) & 0xFF == 27:                
+    print("Total time: ", 1000* np.round(end_time - start_time, 2))
+    print("Count: ", count)
+    cv2.imshow('YOLOv8 Detection with Id Tarcking', frame) 
+    if cv2.waitKey(1) & 0xFF == 27:                
         break
 
 cap.release()
